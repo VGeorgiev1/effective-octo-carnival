@@ -26,9 +26,11 @@ html
                 label.light(for='student') Student
                 br
                 input#parent(type='radio', value='parent', name='role')
-                label.light(for='parent') Subjects
-                label(for='bio') Biography:
+                label.light(for='parent') Parent
+            fieldset#teacherForm
+                label(for='bio') Subjexts:
                 textarea#bio(name='user_bio')
+            fieldset#studentForm
                 label(for='job') Job Role:
                 select#job(name='user_job')
                     optgroup(label='Web')
@@ -48,6 +50,7 @@ html
                     optgroup(label='Other')
                         option(value='secretary') Secretary
                         option(value='maintenance') Maintenance
+            fieldset#parentForm
                 label Interests:
                 input#development(type='checkbox', value='interest_development', name='user_interest')
                 label.light(for='development') Development
@@ -58,3 +61,4 @@ html
                 input#business(type='checkbox', value='interest_business', name='user_interest')
                 label.light(for='business') Business
             button(type='submit') Sign Up
+script(src='/scripts/register.js')

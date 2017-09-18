@@ -3,20 +3,25 @@ var teacherForm = document.getElementById("teacherForm");
 var studentForm = document.getElementById("studentForm");
 var parentForm = document.getElementById("parentForm");
 
-/* If Credit Card is selected by default, add these two lines of code.
-cardpayment.style.display = 'block';   // show
-internetpayment.style.display = 'none';// hide
-*/
+function hide() {
+    teacherForm.style.display = 'none';
+    studentForm.style.display = 'none';
+    parentForm.style.display = 'none';
+}
+
+hide();
 
 for (var i = 0; i < radios.length; i++) {
     radios[i].onclick = function() {
         var val = this.value;
-        if (val == 'radio1' || val == 'radio2') { // Assuming your value for radio buttons is radio1, radio2 and radio3.
-            cardpayment.style.display = 'block'; // show
-            internetpayment.style.display = 'none'; // hide
-        } else if (val == 'radio3') {
-            cardpayment.style.display = 'none';
-            internetpayment.style.display = 'block';
+        console.log(val);
+        hide();
+        if (val == 'teacher') {
+            teacherForm.style.display = 'block';
+        } else if (val == 'student') {
+            studentForm.style.display = 'block';
+        } else {
+            parentForm.style.display = 'block';
         }
-
     }
+}
