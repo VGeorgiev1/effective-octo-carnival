@@ -26,37 +26,5 @@ for (var i = 0; i < radios.length; i++) {
     }
 }
 
-
-var subjectsCount = 1;
-var subject = $("#subject1");
-
-subject.on('input', function() {
-    var len = $(this).attr('id').length;
-    var next = 'subject' + (Number($(this).attr('id').substring('subject'.length, len)) + 1);
-    console.log(next);
-    if (!$('#' + next).length) {
-        $(this).clone(true, true).prop({
-            name: next,
-            id: next,
-
-        }).val('').appendTo($(this).parent());
-        subjectsCount++;
-    }
-});
-
-var childEmailsCount = 1;
-var childemail = $("#childemail1");
-
-childemail.on('input', function() {
-    var len = $(this).attr('id').length;
-    var next = 'childemail' + (Number($(this).attr('id').substring('childemail'.length, len)) + 1);
-    console.log(next);
-    if (!$('#' + next).length) {
-        $(this).clone(true, true).prop({
-            name: next,
-            id: next,
-
-        }).val('').appendTo($(this).parent());
-        childEmailsCount++;
-    }
-});
+infiniteFields('subject');
+infiniteFields('childemail');

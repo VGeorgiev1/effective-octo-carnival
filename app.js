@@ -8,6 +8,18 @@ Kinvey.initialize({
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
 
+var classesDataStore = Kinvey.DataStore.collection('classes');
+
+function harvestInfiniteFields(data, keyword) {
+    return Object.keys(data).filter(function(k) {
+        return k.indexOf(keyword) == 0;
+    }).reduce(function(newData, k) {
+        newData.push(data[k]);
+        return newData;
+    }, []);
+}
+
+
 app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({
@@ -42,12 +54,7 @@ app.post('/register', function(req, res) {
                 password: req.body.user_password,
                 name: req.body.user_name,
                 role: req.body.role,
-                subjects: Object.keys(req.body).filter(function(k) {
-                    return k.indexOf('subject') == 0;
-                }).reduce(function(newData, k) {
-                    newData.push(req.body[k]);
-                    return newData;
-                }, [])
+                subjects: harvestInfiniteFields(req.body, 'subject')
             }).then(function(user) {
 
                 res.redirect('/main');
@@ -59,12 +66,7 @@ app.post('/register', function(req, res) {
                 password: req.body.user_password,
                 name: req.body.user_name,
                 role: req.body.role,
-                childmail: Object.keys(req.body).filter(function(k) {
-                    return k.indexOf('childmail') == 0;
-                }).reduce(function(newData, k) {
-                    newData.push(req.body[k]);
-                    return newData;
-                }, [])
+                childmail: harvestInfiniteFields(req.body, 'childmail')
             }).then(function(user) {
                 res.redirect('/main');
             });
@@ -73,6 +75,7 @@ app.post('/register', function(req, res) {
 
 });
 app.post('/login', function(req, res) {
+
 
 
     let promise = Kinvey.User.login({
@@ -119,7 +122,33 @@ app.post('/post', function (req,res) {
     });
     });
 
+
+    let promise = Kinvey.User.login({
+        username: `${req.body.user_email}`,
+        password: `${req.body.user_password}`
+    }).then(function(user) {
+        res.send(user);
+    }).catch(function onError(error) {
+        console.log(error);
+    });
 });
+
+app.get('/addclass', function(req, res) {
+    res.render('addclass');
+});
+
+app.post('/addclass', function(req, res) {
+    classesDataStore.save({
+        grade: req.body.grade,
+        class: req.body.class
+    }).then(function onSuccess(entity) {
+        res.send("created " + req.body.grade + req.body.class);
+    }).catch(function onError(error) {
+        console.log(error);
+    });
+
+});
+
 app.listen(300, function() {
     console.log('Ready!');
 });
