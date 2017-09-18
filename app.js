@@ -34,7 +34,7 @@ app.post('/register', function (req,res) {
                 class: req.body.class,
                 grade: req.body.grade
             }).then(function (user) {
-                res.send(user);
+                res.render('main')
             });
             break;
         case 'teacher':
@@ -44,7 +44,7 @@ app.post('/register', function (req,res) {
                 role: req.body.role,
                 subject: req.body.subject1,
             }).then(function (user) {
-              res.send(user);
+                 res.render('main')
             });
             break;
         case 'parent':
@@ -54,7 +54,7 @@ app.post('/register', function (req,res) {
                 role: req.body.role,
                 childmail: req.body.childmail1,
             }).then(function (user) {
-                res.send(user);
+                res.render('main')
             });
             break;
     }
@@ -67,8 +67,14 @@ app.post('/login', function (req,res) {
         username: `${req.body.user_email}`,
         password: `${req.body.user_password}`
     }).then(function (user) {
-        res.send(user);
+        res.render('main')
     })
+});
+app.get('/logout', function (req,res) {
+    let promise = Kinvey.User.logout()
+        .then(function () {
+            res.render('home');
+        })
 });
 app.listen(300, function() {
     console.log('Ready!');
