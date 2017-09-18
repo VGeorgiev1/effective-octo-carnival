@@ -3,20 +3,18 @@ html
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title Sign Up Form
-        link(rel='stylesheet', href='/registerDesign.css')
+        link(rel='stylesheet', href='/css/registerDesign.css')
         link(href='https://fonts.googleapis.com/css?family=Nunito:400,300', rel='stylesheet', type='text/css')
         link(rel='stylesheet', href='css/main.css')
     body
-        form(action='index.html', method='post')
+        form(action='/login', method='post')
             h1 Sign Up
             fieldset
                 legend
-                    span.number 1
-                    | Your basic info
                 label(for='mail') Email:
                 input#mail(type='email', name='user_email')
                 label(for='password') Password:
                 input#password(type='password', name='user_password')
-            button(type='submit') Login Up
-            a(href='register') 
-                button Register
+            button(type='submit') Log In
+            div(id='nopad')
+                a(href='/register') Register
