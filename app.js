@@ -21,8 +21,54 @@ app.get('/register', function(req, res) {
     res.render('register');
 
 });
-app.post('/login', function (req,res) {
+app.post('/register', function (req,res) {
+    console.log(req.body);
+    let user = new Kinvey.User();
+    let promise;
+    switch (req.body.role){
+        case 'student':
+             promise=user.signup({
+                username: req.body.user_email,
+                password: req.body.user_password,
+                role: req.body.role,
+                class: req.body.class,
+                grade: req.body.grade
+            }).then(function (user) {
+                res.send(user);
+            });
+            break;
+        case 'teacher':
+             promise=user.signup({
+                username: req.body.user_email,
+                password: req.body.user_password,
+                role: req.body.role,
+                subject: req.body.subject1,
+            }).then(function (user) {
+              res.send(user);
+            });
+            break;
+        case 'parent':
+            promise=user.signup({
+                username: req.body.user_email,
+                password: req.body.user_password,
+                role: req.body.role,
+                childmail: req.body.childmail1,
+            }).then(function (user) {
+                res.send(user);
+            });
+            break;
+    }
 
+});
+app.post('/login', function (req,res) {
+    console.log('zxr');
+    console.log(req.body);
+    let promise = Kinvey.User.login({
+        username: `${req.body.user_email}`,
+        password: `${req.body.user_password}`
+    }).then(function (user) {
+        res.send(user);
+    })
 });
 app.listen(300, function() {
     console.log('Ready!');
