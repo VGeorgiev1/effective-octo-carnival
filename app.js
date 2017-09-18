@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.get('/', function(req, res) {
-    console.log('wtf');
     res.render('home');
 });
 app.get('/register', function(req, res) {
