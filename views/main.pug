@@ -14,10 +14,18 @@ html
             li
                 a(href='/logout') Logout
         div(style='margin-left:25%;padding:1px 16px;height:1000px;')
-            section
-                .text
-                    img(src='http://placehold.it/100/100')
-                    textarea(placeholder="What's in your mind")
-                    input(type='submit', value='post')
-            .overlay
+            form(action='/post', method='POST')
+                section#main
+                    .text
+                        img(src='http://placehold.it/100/100')
+                        textarea#text(placeholder="What's in your mind", name='text')
+                        button(type='submit') Post
+            each entit in ent
+                a(href='/main/'+ entit._id)
+                    section
+                        .text
+                            img(src='http://placehold.it/100/100')
+                            p #{entit.text}
+
+
 

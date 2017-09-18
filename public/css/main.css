@@ -29,18 +29,18 @@ li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
-section {
+fieldset {
     float: right;
     width: 90%;
 }
 section div {
     width: 500px;
     margin: 50px auto;
-    background-color: #fff;
+
     overflow: hidden;
     padding: 20px;
     border-radius: 3px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+
     z-index: 3;
     position: relative;
 }
@@ -57,7 +57,7 @@ section div textarea {
     font-family: arial;
     resize: none;
     outline: none;
-    border-bottom: 2px solid #0077CC;
+    border-bottom: 2px solid #4bc970;
 }
 textarea::-webkit-scrollbar {
     width: 0px;
@@ -71,7 +71,7 @@ section div [type = submit] {
     float: right;
     margin: 15px 10px auto auto;
     border: none;
-    background-color: #0077CC;
+    background-color: #4bc970;
     color: #fff;
     font-weight: bold;
     padding: 10px 15px;
