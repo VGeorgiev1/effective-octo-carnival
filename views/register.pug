@@ -28,37 +28,31 @@ html
                 input#parent(type='radio', value='parent', name='role')
                 label.light(for='parent') Parent
             fieldset#teacherForm
-                label(for='bio') Subjexts:
-                textarea#bio(name='user_bio')
+                label(for='subject1') Subject(s):
+                input#subject1(type='text', name='subject1')
             fieldset#studentForm
-                label(for='job') Job Role:
-                select#job(name='user_job')
-                    optgroup(label='Web')
-                        option(value='frontend_developer') Front-End Developer
-                        option(value='php_developor') PHP Developer
-                        option(value='python_developer') Python Developer
-                        option(value='rails_developer')  Rails Developer
-                        option(value='web_designer') Web Designer
-                        option(value='WordPress_developer') WordPress Developer
-                    optgroup(label='Mobile')
-                        option(value='Android_developer') Androild Developer
-                        option(value='iOS_developer') iOS Developer
-                        option(value='mobile_designer') Mobile Designer
-                    optgroup(label='Business')
-                        option(value='business_owner') Business Owner
-                        option(value='freelancer') Freelancer
-                    optgroup(label='Other')
-                        option(value='secretary') Secretary
-                        option(value='maintenance') Maintenance
+                label(for='grade') Grade:
+                select#grade(name='grade')
+                        option(value='1') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                        option(value='4') 4
+                        option(value='5') 5
+                        option(value='6') 6
+                        option(value='7') 7
+                        option(value='8') 8
+                        option(value='9') 9
+                        option(value='10') 10
+                        option(value='11') 11
+                        option(value='12') 12
+                label(for='class') Class:                        
+                select#class(name='class')
+                        option(value='A') A
+                        option(value='B') B
+                        option(value='C') C
+                        option(value='D') D
             fieldset#parentForm
-                label Interests:
-                input#development(type='checkbox', value='interest_development', name='user_interest')
-                label.light(for='development') Development
-                br
-                input#design(type='checkbox', value='interest_design', name='user_interest')
-                label.light(for='design') Design
-                br
-                input#business(type='checkbox', value='interest_business', name='user_interest')
-                label.light(for='business') Business
+                label(for='childemail1') Child E-mail(s):
+                input#childemail1(type='text', name='childemail1')
             button(type='submit') Sign Up
 script(src='/scripts/register.js')
