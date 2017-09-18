@@ -25,7 +25,6 @@ app.get('/register', function(req, res) {
 
 });
 app.post('/register', function(req, res) {
-    console.log(req.body);
     let user = new Kinvey.User();
     let promise;
     switch (req.body.role) {
@@ -74,8 +73,6 @@ app.post('/register', function(req, res) {
 
 });
 app.post('/login', function(req, res) {
-    console.log('zxr');
-    console.log(req.body);
     let promise = Kinvey.User.login({
         username: `${req.body.user_email}`,
         password: `${req.body.user_password}`
@@ -83,6 +80,15 @@ app.post('/login', function(req, res) {
         res.send(user);
     })
 });
+
+app.get('/addclass', function(req, res) {
+    res.render('addclass');
+});
+
+app.post('/addclass', function(req, res) {
+    console.log(req.body);
+});
+
 app.listen(300, function() {
     console.log('Ready!');
 });
