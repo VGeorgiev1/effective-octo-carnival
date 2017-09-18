@@ -60,9 +60,10 @@ select {
     height: 32px;
     border-radius: 2px;
 }
-
-button{
-     padding: 19px 39px 18px 39px;
+button, a{
+    padding:19px 39px 18px 39px;
+}
+button, #nopad{
      color: #FFF;
      background-color: #4bc970;
      font-size: 18px;
@@ -74,8 +75,17 @@ button{
      border-width: 1px 1px 3px;
      box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
      margin-bottom: 10px;
- }
-
+}
+#nopad{
+    padding:none;
+}
+a{
+    display: block;
+    width: 100%;
+    color:#FFF;
+    text-decoration:none;
+    font-size: 18px;
+}
 fieldset {
     margin-bottom: 30px;
     border: none;
