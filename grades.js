@@ -52,9 +52,6 @@ module.exports = {
                     }
                 }
 
-                console.log("a");
-                console.log(table);
-
                 res.render('table', {
                     Table: table
                 });
