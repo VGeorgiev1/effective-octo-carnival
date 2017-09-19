@@ -1,29 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const auth=require('./authentication.js');
-const forum=require('./forum.js');
+const auth = require('./authentication.js');
+const forum = require('./forum.js');
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
-<<<<<<< HEAD
-
-var classesDataStore = Kinvey.DataStore.collection('classes');
-
-function harvestInfiniteFields(data, keyword) {
-    return Object.keys(data).filter(function(k) {
-        return k.indexOf(keyword) == 0;
-    }).reduce(function(newData, k) {
-        newData.push(data[k]);
-        return newData;
-    }, []);
-}
-
-
-=======
->>>>>>> 4d2467d949941d0190b31422c156d1dd74cf23ae
 app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({
@@ -32,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.render('home');
 });
-<<<<<<< HEAD
+
 app.get('/register', function(req, res) {
     res.render('register');
 });
@@ -112,8 +96,7 @@ app.post('/login', function(req, res) {
         console.log(err);
     });
 });
-=======
->>>>>>> 4d2467d949941d0190b31422c156d1dd74cf23ae
+
 app.get('/main', function(req, res) {
     let threadStore = Kinvey.DataStore.collection('threads');
     let stream = threadStore.find();

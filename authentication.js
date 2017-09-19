@@ -4,6 +4,8 @@ Kinvey.initialize({
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
 
+var classesDataStore = Kinvey.DataStore.collection('classes');
+
 function harvestInfiniteFields(data, keyword) {
     return Object.keys(data).filter(function(k) {
         return k.indexOf(keyword) == 0;
@@ -13,7 +15,7 @@ function harvestInfiniteFields(data, keyword) {
     }, []);
 }
 
-module.exports= {
+module.exports = {
 
     registerPOST: (req, res) => {
         let user = new Kinvey.User();
@@ -29,7 +31,7 @@ module.exports= {
                     role: req.body.role,
                     class: req.body.class,
                     grade: req.body.grade
-                }).then(function (user) {
+                }).then(function(user) {
                     console.log("51");
                     var classQuery = new Kinvey.Query();
                     var classesDataStore = Kinvey.DataStore.collection('classes');
@@ -72,7 +74,7 @@ module.exports= {
                     name: req.body.user_name,
                     role: req.body.role,
                     subjects: harvestInfiniteFields(req.body, 'subject')
-                }).then(function (user) {
+                }).then(function(user) {
 
                     res.redirect('/main');
                 });
@@ -84,29 +86,29 @@ module.exports= {
                     name: req.body.user_name,
                     role: req.body.role,
                     childmail: harvestInfiniteFields(req.body, 'childmail')
-                }).then(function (user) {
+                }).then(function(user) {
                     res.redirect('/main');
                 });
                 break;
         }
     },
-    registerGET: (req, res) =>{
+    registerGET: (req, res) => {
         res.render('register');
     },
-    login:(req,res)=> {
-       let promise = Kinvey.User.login({
-           username: `${req.body.user_email}`,
-           password: `${req.body.user_password}`
-       }).then(function (user) {
-           res.redirect('/main')
-       }).catch(function onError(error) {
-           console.log(error);
-       });
+    login: (req, res) => {
+        let promise = Kinvey.User.login({
+            username: `${req.body.user_email}`,
+            password: `${req.body.user_password}`
+        }).then(function(user) {
+            res.redirect('/main')
+        }).catch(function onError(error) {
+            console.log(error);
+        });
     },
-    logout:(req,res)=>{
-       let promise = Kinvey.User.logout()
-           .then(function() {
-               res.render('home');
-       })
+    logout: (req, res) => {
+        let promise = Kinvey.User.logout()
+            .then(function() {
+                res.render('home');
+            })
     }
 };
