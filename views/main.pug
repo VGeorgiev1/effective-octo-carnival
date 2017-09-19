@@ -2,18 +2,9 @@ html
     head
         link(rel='stylesheet', href='/css/main.css')
     body
-        ul
-            li
-                a.active(href='/forum') Forum
-            li
-                a(href='#news') Grades
-            li
-                a(href='#contact') Materials
-            li
-                a(href='#about') Chat
-            li
-                a(href='/logout') Logout
+        include ./header.pug
         div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
+
             form(action='/post', method='POST')
                 section#main
                     .text
@@ -25,7 +16,7 @@ html
                         br
                         br
             each entit in ent
-                a(href='/main/'+ entit._id style="text-decoration:none")
+                a(href='/details/'+ entit._id style="text-decoration:none")
                     section(class="forumpost")
                         .text
                             img(src='http://placehold.it/100/100')

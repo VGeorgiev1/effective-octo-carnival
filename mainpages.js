@@ -17,9 +17,7 @@ module.exports={
         }, function onError(error) {
             console.log(error);
         }, function onComplete() {
-            res.render('main', {
-                    ent: ent
-            })
+            res.render('main', {ent: ent})
         });
     }
 };
