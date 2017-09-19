@@ -30,7 +30,7 @@ app.get('/logout', auth.logout);
 app.get('/addclass', dir.addClassGet);
 app.post('/addclass', dir.addClassPOST);
 app.get('/details/:id', forum.details);
-app.get('/grades/:subject', grades.show);
+app.get('/grades/:grade/:class/:subject', grades.show);
 app.post('/postComment/:id', forum.postComment)
 app.post('/upload', materials.upload);
 app.get('/download/:id', materials.download)
