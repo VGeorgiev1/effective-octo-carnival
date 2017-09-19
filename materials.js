@@ -18,6 +18,7 @@ module.exports={
         })
     },
     upload: (req,res)=>{
+
         console.log(req.files.name.data);
         let materialsStore=Kinvey.DataStore.collection('materials');
         var activeUser = Kinvey.User.getActiveUser();
@@ -42,18 +43,14 @@ module.exports={
                 }).catch(function(err) {
                     console.log(err);
                 });
-
-
         });
     },
     download:(req,res)=>{
         console.log(req.param('id'));
         var promise = Kinvey.Files.stream(`${req.param('id')}`)
             .then(function(file) {
-                console.log(file._downloadURL);
                let url=file._downloadURL;
                res.redirect(url);
-
             })
             .catch(function(error) {
                 console.log(error.message);
