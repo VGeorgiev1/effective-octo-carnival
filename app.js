@@ -25,6 +25,7 @@ app.get('/logout', auth.logout);
 app.get('/addclass', dir.addClassGet);
 app.post('/addclass', dir.addClassPOST);
 app.get('/details/:id', forum.details);
+app.post('/postComment/:id',forum.postComment)
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });
