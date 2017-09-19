@@ -57,7 +57,7 @@ app.get('/addgrade', function(req, res) {
 app.post('/addgrade', function(req, res) {
     var classQuery = new Kinvey.Query();
     classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
-    let classesDataStore = Kinvey.DataStore.collection('threads');
+    let classesDataStore = Kinvey.DataStore.collection('classes');
     let stream = classesDataStore.find();
     stream.subscribe(function onNext(entities) {
         if (entities.length > 0) {
@@ -77,8 +77,9 @@ app.post('/addgrade', function(req, res) {
                 value: req.body.value,
                 weight: 1
             });
+            newFunction();
             classesDataStore.save(matchingClass).then(function onSuccess(entity) {
-                console.log("saved: " + entitity);
+                console.log("saved: " + entity);
             }).catch(function onError(error) {
                 console.log(error);
             });
@@ -86,7 +87,7 @@ app.post('/addgrade', function(req, res) {
     }, function onError(error) {
         console.log(error);
     }, function onComplete() {
-        res.render('addgrade');
+        res.render('main');
     });
 });
 
@@ -94,3 +95,7 @@ app.listen(300, function() {
     console.log('Ready!');
 });
 app.use(express.static('public'));
+
+function newFunction() {
+    console.log("a");
+}
