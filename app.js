@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
+const auth=require('./authentication.js');
+const forum=require('./forum.js');
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
+<<<<<<< HEAD
 
 var classesDataStore = Kinvey.DataStore.collection('classes');
 
@@ -20,6 +22,8 @@ function harvestInfiniteFields(data, keyword) {
 }
 
 
+=======
+>>>>>>> 4d2467d949941d0190b31422c156d1dd74cf23ae
 app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({
@@ -28,6 +32,7 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.render('home');
 });
+<<<<<<< HEAD
 app.get('/register', function(req, res) {
     res.render('register');
 });
@@ -107,8 +112,9 @@ app.post('/login', function(req, res) {
         console.log(err);
     });
 });
+=======
+>>>>>>> 4d2467d949941d0190b31422c156d1dd74cf23ae
 app.get('/main', function(req, res) {
-
     let threadStore = Kinvey.DataStore.collection('threads');
     let stream = threadStore.find();
     let ent;
@@ -122,38 +128,11 @@ app.get('/main', function(req, res) {
         })
     });
 });
-app.get('/logout', function(req, res) {
-    let promise = Kinvey.User.logout()
-        .then(function() {
-            res.render('home');
-        })
-});
-app.post('/post', function(req, res) {
-    let threadStore = Kinvey.DataStore.collection('threads');
-    var activeUser = Kinvey.User.getActiveUser();
-    let promiseUser = Promise.resolve(activeUser);
-    promiseUser.then(function(activeuser) {
-        let promise = threadStore.save({
-            text: `${req.body.text}`,
-            author: `${activeuser.data.name}`
-        }).then(function onSuccess(entity) {
-            res.redirect('/main');
-        }).catch(function(err) {
-            console.log(err);
-        });
-    });
-
-
-    let promise = Kinvey.User.login({
-        username: `${req.body.user_email}`,
-        password: `${req.body.user_password}`
-    }).then(function(user) {
-        res.send(user);
-    }).catch(function onError(error) {
-        console.log(error);
-    });
-});
-
+app.get('/register', auth.registerGET);
+app.post('/register', auth.registerPOST);
+app.post('/login', auth.login);
+app.post('/post', forum.postthread);
+app.get('/logout', auth.logout);
 app.get('/addclass', function(req, res) {
     res.render('addclass');
 });
