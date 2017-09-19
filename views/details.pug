@@ -4,21 +4,14 @@ html
     body
         include ./header.pug
         div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
-
-            form(action='/post', method='POST')
+            section
+                .text
+                    img(src='http://placehold.it/100/100')
+                    p #{entit.text}
+            form(action='/postComment/' + entit._id, method='POST')
                 section#main
                     .text
                         img(src='http://placehold.it/100/100')
                         textarea#text(placeholder="What's in your mind", name='text')
                         br
                         button(type='submit') Post
-            each entit in ent
-
-                a(href='/details/'+ entit._id)
-                    section
-                        .text
-                            img(src='http://placehold.it/100/100')
-                            p #{entit.text}
-
-
-

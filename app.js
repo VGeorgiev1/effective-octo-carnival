@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const auth = require('./authentication.js');
 const forum = require('./forum.js');
+const dir=require('./director');
+const mainpages=require('./mainpages');
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
@@ -13,43 +15,17 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.get('/', function(req, res) {
-    res.render('home');
-});
-app.get('/main', function(req, res) {
-    let threadStore = Kinvey.DataStore.collection('threads');
-    let stream = threadStore.find();
-    let ent;
-    stream.subscribe(function onNext(entities) {
-        ent = entities;
-    }, function onError(error) {
-        console.log(error);
-    }, function onComplete() {
-        res.render('main', {
-            ent: ent
-        })
-    });
-});
+app.get('/', mainpages.home);
+app.get('/main', mainpages.main);
 app.get('/register', auth.registerGET);
 app.post('/register', auth.registerPOST);
 app.post('/login', auth.login);
 app.post('/post', forum.postthread);
 app.get('/logout', auth.logout);
-app.get('/addclass', function(req, res) {
-    res.render('addclass');
-});
-app.post('/addclass', function(req, res) {
-    classesDataStore.save({
-        grade: req.body.grade,
-        class: req.body.class
-    }).then(function onSuccess(entity) {
-        res.send("created " + req.body.grade + req.body.class);
-    }).catch(function onError(error) {
-        console.log(error);
-    });
-
-});
-
+app.get('/addclass', dir.addClassGet);
+app.post('/addclass', dir.addClassPOST);
+app.get('/details/:id', forum.details);
+app.post('/postComment/:id',forum.postComment)
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });
@@ -90,7 +66,6 @@ app.post('/addgrade', function(req, res) {
         res.render('main');
     });
 });
-
 app.listen(300, function() {
     console.log('Ready!');
 });
