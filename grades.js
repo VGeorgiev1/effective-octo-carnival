@@ -40,12 +40,12 @@ module.exports = {
                 for (let i = 0; i < studentNames.length + 1; i++) {
                     for (let j = 0; j < topics.length + 1; j++) {
                         if (i > 0 && j > 0) {
-                            let mark = subj[studentNames[i - 1]].filter((a) => a.name == topics[j])[0];
+                            let mark = subj[studentNames[i - 1]].filter((a) => a.name == topics[j - 1])[0];
                             table[i][j] = mark === undefined ? "" : mark.value;
                         } else if (i > 0 && j == 0) {
                             table[i][j] = studentNames[i - 1];
                         } else if (i == 0 && j > 0) {
-                            table[i][j] = topics[i - 1];
+                            table[i][j] = topics[j - 1];
                         } else {
                             table[i][j] = "";
                         }
