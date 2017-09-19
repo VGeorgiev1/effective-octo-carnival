@@ -3,7 +3,6 @@ Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
-
 var classesDataStore = Kinvey.DataStore.collection('classes');
 
 function harvestInfiniteFields(data, keyword) {
@@ -100,6 +99,7 @@ module.exports = {
             username: `${req.body.user_email}`,
             password: `${req.body.user_password}`
         }).then(function(user) {
+            
             res.redirect('/main')
         }).catch(function onError(error) {
             console.log(error);

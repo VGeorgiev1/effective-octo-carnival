@@ -11,8 +11,9 @@ html
             each row, i in Table
                 tr
                 if i == 0
-                    each col in row
-                        th #{col}
+                    each col.content in row
+                        th #{col.content}
                 else
-                    each col in row
-                        td #{col}
+                    each col.content in row
+                        td #{col.content}
+script(src='/scripts/tableInput.js')
