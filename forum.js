@@ -3,9 +3,7 @@ Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
-
 module.exports={
-
     postthread: (req, res)=>{
     let threadStore = Kinvey.DataStore.collection('threads');
         var activeUser = Kinvey.User.getActiveUser();
@@ -22,19 +20,29 @@ module.exports={
         });
     },
     details: (req,res)=>{
-
         let threadStore = Kinvey.DataStore.collection('threads');
+        let commentStore= Kinvey.DataStore.collection('comments');
+        let query2=new Kinvey.Query();
+        query2.equalTo('post', req.param('id'));
         let query = new Kinvey.Query();
         query.equalTo('_id', req.param('id'));
         let stream=threadStore.find(query);
         let entityHolder;
+        let commentsHolder;
+        let stream2=commentStore.find(query2);
         stream.subscribe(function onNext(entity) {
             entityHolder=entity;
         },function onError(error) {
             console.log(error);
         },function onComplete() {
-            console.log(entityHolder);
-            res.render('details', {entit: entityHolder[0]})
+            stream2.subscribe(function onNext(entities) {
+               commentsHolder=entities
+            },function onError(error){
+                console.log(error);
+            },function onComplete() {
+                res.render('details', {entit: entityHolder[0],
+                                       comments: commentsHolder})
+            });
         })
     },
     postComment: (req,res)=>{
@@ -52,6 +60,5 @@ module.exports={
                 console.log(err);
             });
         });
-
     }
 };

@@ -32,8 +32,8 @@ module.exports={
         let ent;
         stream.subscribe(function onNext(entities) {
             ent = entities;
-            ent.map(x=>x.time=calcTime(x._kmd.ect))
-
+            ent.map(x=>x.time=calcTime(x._kmd.ect));
+            console.log(ent);
         }, function onError(error) {
             console.log(error);
         }, function onComplete() {

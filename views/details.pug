@@ -15,3 +15,10 @@ html
                         textarea#text(placeholder="What's in your mind", name='text')
                         br
                         button(type='submit') Post
+            each comment in comments
+                    section(class="forumpost")
+                        .text
+                            img(src='http://placehold.it/100/100')
+                            text(id="author") #{comment.author}
+                            p #{comment.text}
+                            p #{comment.time}
