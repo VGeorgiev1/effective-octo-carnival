@@ -21,7 +21,7 @@ module.exports = {
         var classQuery = new Kinvey.Query();
         classQuery.equalTo('grade', req.params.grade).and().equalTo('class', req.params.class);
         let classesDataStore = Kinvey.DataStore.collection('classes');
-        let stream = classesDataStore.find();
+        let stream = classesDataStore.find(classesDataStore);
         stream.subscribe(function onNext(entities) {
             if (entities.length > 0) {
                 let matchingClass = entities[0];

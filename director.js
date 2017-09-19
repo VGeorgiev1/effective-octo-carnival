@@ -4,8 +4,9 @@ Kinvey.initialize({
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
 
-module.exports={
+module.exports = {
     addClassPOST: (req, res) => {
+        let classesDataStore = Kinvey.DataStore.collection('classes');
         classesDataStore.save({
             grade: req.body.grade,
             class: req.body.class
@@ -15,8 +16,8 @@ module.exports={
             console.log(error);
         });
     },
-    addClassGet:(req, res)  => {
-    res.render('addgrade');
+    addClassGet: (req, res) => {
+        res.render('addclass');
     }
 
 };

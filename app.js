@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const cookieParser=require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const auth = require('./authentication.js');
 const forum = require('./forum.js');
 const dir = require('./director');
 const grades = require('./grades');
 const mainpages = require('./mainpages');
-const materials=require('./materials');
+const materials = require('./materials');
 const fileUpload = require('express-fileupload');
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
@@ -43,7 +43,7 @@ app.post('/addgrade', function(req, res) {
     var classQuery = new Kinvey.Query();
     classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
     let classesDataStore = Kinvey.DataStore.collection('classes');
-    let stream = classesDataStore.find();
+    let stream = classesDataStore.find(classQuery);
     stream.subscribe(function onNext(entities) {
         if (entities.length > 0) {
             let matchingClass = entities[0];
@@ -72,7 +72,7 @@ app.post('/addgrade', function(req, res) {
     }, function onError(error) {
         console.log(error);
     }, function onComplete() {
-        res.render('addclass');
+        res.render('addgrade');
     });
 });
 
