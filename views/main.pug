@@ -18,15 +18,18 @@ html
                 section#main
                     .text
                         img(src='http://placehold.it/100/100')
-                        textarea#text(placeholder="What's in your mind", name='text')
+                        textarea#text(placeholder="What's on your mind", name='text')
                         br
                         button(type='submit') Post
+                        br 
+                        br
+                        br
             each entit in ent
-                a(href='/main/'+ entit._id)
+                a(href='/main/'+ entit._id style="text-decoration:none")
                     section(class="forumpost")
                         .text
                             img(src='http://placehold.it/100/100')
+                            text(id="author") #{entit.author}
                             p #{entit.text}
-
 
 
