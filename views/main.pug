@@ -4,12 +4,15 @@ html
     body
         include ./header.pug
         div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
-
+            form(action='/search', method='POST')
+                input#seacrh(style='float:right',placeholder="tags(press space to add more)", name='search')
+                button(style='float:right',type='submit') Search
             form(action='/post', method='POST')
                 section#main
                     .text
                         img(src='http://placehold.it/100/100')
                         textarea#text(placeholder="What's on your mind", name='text')
+                        input#tags(placeholder="tags(press space to add more)", name='tags')
                         br
                         button(type='submit') Post
                         br 
@@ -23,5 +26,8 @@ html
                             text(id="author") #{entit.author}
                             p #{entit.text}
                             p #{entit.time}
+                            p Tags: #{entit.tagsText}
+
+
 
 

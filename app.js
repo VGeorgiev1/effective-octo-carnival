@@ -38,7 +38,7 @@ app.get('/materials', materials.materialsGet);
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });
-
+app.post('/search', forum.search)
 app.post('/addgrade', function(req, res) {
     var classQuery = new Kinvey.Query();
     classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);

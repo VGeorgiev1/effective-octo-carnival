@@ -33,6 +33,13 @@ module.exports={
         stream.subscribe(function onNext(entities) {
             ent = entities;
             ent.map(x=>x.time=calcTime(x._kmd.ect));
+
+            ent.map(x=> {
+                if (x.tags) {
+                    x.tagsText = x.tags.join(', ')
+                }
+            });
+            ent.reverse();
         }, function onError(error) {
             console.log(error);
         }, function onComplete() {
