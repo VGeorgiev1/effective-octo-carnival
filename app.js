@@ -6,9 +6,21 @@ const auth = require('./authentication.js');
 const forum = require('./forum.js');
 const dir = require('./director');
 const grades = require('./grades');
+const chat = require('./chat');
 const mainpages = require('./mainpages');
 const materials = require('./materials');
 const fileUpload = require('express-fileupload');
+var io = require('socket.io').listen(app.listen(300));
+
+io.sockets.on('connection', function(socket) {
+    socket.emit('message', {
+        message: 'welcome to the chat'
+    });
+    socket.on('send', function(data) {
+        io.sockets.emit('message', data);
+    });
+});
+
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
@@ -31,6 +43,7 @@ app.get('/addclass', dir.addClassGet);
 app.post('/addclass', dir.addClassPOST);
 app.get('/details/:id', forum.details);
 app.get('/grades/:grade/:class/:subject', grades.show);
+app.get('/chat/:id', chat.show);
 app.post('/postComment/:id', forum.postComment)
 app.post('/upload', materials.upload);
 app.get('/download/:id', materials.download)
@@ -76,7 +89,7 @@ app.post('/addgrade', function(req, res) {
     });
 });
 
-app.listen(300, function() {
+/*app.listen(300, function() {
     console.log('Ready!');
-});
+});*/
 app.use(express.static('public'));
