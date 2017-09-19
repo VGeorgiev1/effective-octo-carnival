@@ -12,8 +12,6 @@ Kinvey.initialize({
     // ...
 });
 
-var classesDataStore = Kinvey.DataStore.collection('classes');
-
 function harvestInfiniteFields(data, keyword) {
     return Object.keys(data).filter(function(k) {
         return k.indexOf(keyword) == 0;
@@ -40,6 +38,7 @@ app.post('/register', function(req, res) {
     let promise;
     switch (req.body.role) {
         case 'student':
+            console.log("43");
             promise = user.signup({
                 username: req.body.user_email,
                 password: req.body.user_password,
@@ -47,8 +46,39 @@ app.post('/register', function(req, res) {
                 class: req.body.class,
                 grade: req.body.grade
             }).then(function(user) {
-                res.send(user);
-            });
+                console.log("51");
+                var classQuery = new Kinvey.Query();
+                var classesDataStore = Kinvey.DataStore.collection('classes');
+                classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
+                var stream = classesDataStore.find();
+                stream.subscribe(function onNext(entities) {
+                    console.log("entities: " + entities);
+                    /*console.log("56");
+                    let matchingClass = entities[0];
+                    console.log(matchingClass);
+                    console.log("58");
+                    if (!matchingClass.hasOwnProperty(students)) {
+                        console.log("60");
+                        matchingClass.students = [];
+                    }
+                    console.log("62");
+                    matchingClass.students.push({
+                        class: req.body.class,
+                        grade: req.body.grade,
+                        name: req.body.user_name
+                    });
+                    console.log("64");
+                    classesDataStore.save(matchingClass).then(function onSuccess(entity) {
+                        console.log(entitity);
+                    }).catch(function onError(error) {
+                        console.log(error);
+                    });*/
+                }, function onError(error) {
+                    console.log(error);
+                }, function onComplete() {
+                    res.send(user);
+                });
+            }).catch((e) => console.log(e));
             break;
         case 'teacher':
             promise = user.signup({
@@ -96,6 +126,41 @@ app.post('/addclass', function(req, res) {
         res.send("created " + req.body.grade + req.body.class);
     }).catch(function onError(error) {
         console.log(error);
+    });
+});
+
+app.get('/addgrade', function(req, res) {
+    res.render('addgrade');
+});
+
+app.post('/addgrade', function(req, res) {
+    var classQuery = new Kinvey.Query();
+    classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
+    var stream = classesDataStore.find(classQuery);
+    stream.subscribe(function onNext(entities) {
+
+        matchingClass = entities[0];
+        matchingStudent = matchingClass.students.filter(s => s.name = req.body.studentname)[0];
+        if (!matchingClass.subjects.hasOwnProperty(req.body.subject)) {
+            matchingClass.subjects[req.body.subject] = {};
+        }
+        if (!matchingClass.subjects[req.body.subject].hasOwnProperty(matchingStudent._id)) {
+            matchingClass.subjects[req.body.subject] = [];
+        }
+        matchingClass.subjects[req.body.subject][matchingStudent._id].push({
+            name: req.body.name,
+            value: req.body.value,
+            weight: 1
+        });
+        classesDataStore.save(matchingClass).then(function onSuccess(entity) {
+            // ...
+        }).catch(function onError(error) {
+            // ...
+        });
+    }, function onError(error) {
+        console.log(error);
+    }, function onComplete() {
+        res.render('addgrade');
     });
 });
 
