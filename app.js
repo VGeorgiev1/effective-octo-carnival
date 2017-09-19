@@ -52,34 +52,34 @@ app.post('/register', function(req, res) {
                 classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
                 var stream = classesDataStore.find();
                 stream.subscribe(function onNext(entities) {
-                    console.log("entities: " + entities);
-                    /*console.log("56");
-                    let matchingClass = entities[0];
-                    console.log(matchingClass);
-                    console.log("58");
-                    if (!matchingClass.hasOwnProperty(students)) {
-                        console.log("60");
-                        matchingClass.students = [];
+                    if (entities.length > 0) {
+                        console.log("entities: " + entities);
+                        console.log("56");
+                        let matchingClass = entities[0];
+                        console.log(matchingClass);
+                        console.log("58");
+                        if (!matchingClass.hasOwnProperty('students')) {
+                            console.log("60");
+                            matchingClass.students = [];
+                        }
+                        console.log("62");
+                        matchingClass.students.push(user._id);
+                        console.log("64");
+                        classesDataStore.save(matchingClass).then(function onSuccess(entity) {
+                            console.log(entitity);
+                        }).catch(function onError(error) {
+                            console.log(error);
+                        });
+                        res.send(matchingClass);
                     }
-                    console.log("62");
-                    matchingClass.students.push({
-                        class: req.body.class,
-                        grade: req.body.grade,
-                        name: req.body.user_name
-                    });
-                    console.log("64");
-                    classesDataStore.save(matchingClass).then(function onSuccess(entity) {
-                        console.log(entitity);
-                    }).catch(function onError(error) {
-                        console.log(error);
-                    });*/
-                    res.redirect('/main');
                 }, function onError(error) {
                     console.log(error);
                 }, function onComplete() {
-                    res.send(user);
+                    //res.send(user);
                 });
-            }).catch((e) => console.log(e));
+            }).catch(function catcher(error) {
+                console.log(error);
+            });
             break;
         case 'teacher':
             promise = user.signup({
@@ -111,44 +111,46 @@ app.post('/login', function(req, res) {
     let promise = Kinvey.User.login({
         username: `${req.body.user_email}`,
         password: `${req.body.user_password}`
-    }).then(function (user) {
+    }).then(function(user) {
         res.redirect('/main');
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.log(err);
     });
 });
-app.get('/main', function (req,res) {
+app.get('/main', function(req, res) {
 
     let threadStore = Kinvey.DataStore.collection('threads');
     let stream = threadStore.find();
     let ent;
     stream.subscribe(function onNext(entities) {
-        ent=entities;
+        ent = entities;
     }, function onError(error) {
         console.log(error);
     }, function onComplete() {
-        res.render('main', {ent:ent})
+        res.render('main', {
+            ent: ent
+        })
     });
 });
-app.get('/logout', function (req,res) {
+app.get('/logout', function(req, res) {
     let promise = Kinvey.User.logout()
-        .then(function () {
+        .then(function() {
             res.render('home');
         })
 });
-app.post('/post', function (req,res) {
+app.post('/post', function(req, res) {
     let threadStore = Kinvey.DataStore.collection('threads');
     var activeUser = Kinvey.User.getActiveUser();
     let promiseUser = Promise.resolve(activeUser);
-    promiseUser.then(function (activeuser) {
-    let promise = threadStore.save({
-        text: `${req.body.text}`,
-        author:`${activeuser.data.name}`
-    }).then(function onSuccess(entity) {
-        res.redirect('/main');
-    }).catch(function (err) {
-        console.log(err);
-    });
+    promiseUser.then(function(activeuser) {
+        let promise = threadStore.save({
+            text: `${req.body.text}`,
+            author: `${activeuser.data.name}`
+        }).then(function onSuccess(entity) {
+            res.redirect('/main');
+        }).catch(function(err) {
+            console.log(err);
+        });
     });
 
 
