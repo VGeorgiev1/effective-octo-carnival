@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const auth = require('./authentication.js');
 const forum = require('./forum.js');
 const dir = require('./director');
+const grades = require('./grades');
 const mainpages = require('./mainpages');
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
@@ -25,6 +26,7 @@ app.get('/logout', auth.logout);
 app.get('/addclass', dir.addClassGet);
 app.post('/addclass', dir.addClassPOST);
 app.get('/details/:id', forum.details);
+app.get('/grades/:subject', grades.show);
 app.post('/postComment/:id', forum.postComment)
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
@@ -43,7 +45,7 @@ app.post('/addgrade', function(req, res) {
                 matchingClass.subjects = {};
             }
             if (!matchingClass.subjects.hasOwnProperty(req.body.subject)) {
-                matchingClass.subjects[req.body.subject] = {};
+                matchingClass.subjects[req.body.subject] = {}; // DO NOT TOUCH THIS IT WILL EXPLODE!!!!
             }
             if (!matchingClass.subjects[req.body.subject].hasOwnProperty(studentEmail)) {
                 matchingClass.subjects[req.body.subject][studentEmail] = [];
@@ -53,7 +55,6 @@ app.post('/addgrade', function(req, res) {
                 value: req.body.value,
                 weight: 1
             });
-            newFunction();
             classesDataStore.save(matchingClass).then(function onSuccess(entity) {
                 console.log("entity:");
                 console.log(entity);
@@ -72,7 +73,3 @@ app.listen(300, function() {
     console.log('Ready!');
 });
 app.use(express.static('public'));
-
-function newFunction() {
-    console.log("a");
-}
