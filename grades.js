@@ -5,6 +5,10 @@ Kinvey.initialize({
 });
 module.exports = {
     show: (req, res) => {
-        res.render('table');
+        res.render('table', [
+            ["a", "v"],
+            ["g", "ads"],
+            ["asda", "asdsd"]
+        ]);
     }
 };
