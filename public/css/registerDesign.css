@@ -61,39 +61,34 @@ select {
     border-radius: 2px;
 }
 button, a{
-    padding:19px 39px 18px 39px;
+    padding:11px 20px 11px 39px;
 }
 button, #nopad{
      color: #FFF;
      background-color: #4bc970;
-     font-size: 18px;
-     text-align: center;
-     font-style: normal;
+     font-size: 20px;
      border-radius: 5px;
-     width: 100%;
+     width: 85%;
      border: 1px solid #3ac162;
      border-width: 1px 1px 3px;
      box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
      margin-bottom: 10px;
+     margin-left:8%;
 }
 #nopad{
     padding:none;
+    text-align:center;
 }
 a{
     display: block;
     width: 100%;
     color:#FFF;
     text-decoration:none;
-    font-size: 18px;
+    font-size: 20px;
 }
 fieldset {
     margin-bottom: 30px;
     border: none;
-}
-
-legend {
-    font-size: 1.4em;
-    margin-bottom: 10px;
 }
 
 label {
