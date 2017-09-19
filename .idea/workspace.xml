@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e13102a5-8ce2-4325-acfc-d61eed23c21a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/main.css" afterPath="$PROJECT_DIR$/public/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/registerDesign.css" afterPath="$PROJECT_DIR$/public/css/registerDesign.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/home.pug" afterPath="$PROJECT_DIR$/views/home.pug" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/main.pug" afterPath="$PROJECT_DIR$/views/main.pug" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/register.pug" afterPath="$PROJECT_DIR$/views/register.pug" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,8 +76,8 @@
       <file leaf-file-name="main.pug" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/main.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="132">
+              <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -478,7 +473,7 @@
       <workItem from="1505738138734" duration="5760000" />
       <workItem from="1505744728779" duration="12395000" />
       <workItem from="1505759338804" duration="6465000" />
-      <workItem from="1505823509124" duration="10362000" />
+      <workItem from="1505823509124" duration="10427000" />
     </task>
     <task id="LOCAL-00001" summary="added routing">
       <created>1505832106461</created>
@@ -505,7 +500,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34982000" />
+    <option name="totallyTimeSpent" value="35047000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -864,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/main.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="132">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
           <folding />
         </state>
       </provider>
