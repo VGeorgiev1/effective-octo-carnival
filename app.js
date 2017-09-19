@@ -12,20 +12,45 @@ const materials = require('./materials');
 const fileUpload = require('express-fileupload');
 var io = require('socket.io').listen(app.listen(300));
 
-io.sockets.on('connection', function(socket) {
-    socket.emit('message', {
-        message: 'welcome to the chat'
-    });
-    socket.on('send', function(data) {
-        io.sockets.emit('message', data);
-    });
-});
-
 var Kinvey = require('kinvey-node-sdk');
 Kinvey.initialize({
     appKey: 'kid_SJg4EY6cW',
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
+
+io.on('connection', function(socket) {
+    socket.emit('message', {
+        username: "server",
+        message: "hello"
+    });
+    var promise = Kinvey.User.update({
+            "socket_id": socket.id
+        })
+        .then(function(user) {
+            // ...
+        })
+        .catch(function(error) {
+            // ...
+        });
+    socket.on('send', function(data) {
+        console.log("aaa");
+        var activeUser = Kinvey.User.getActiveUser();
+        let promiseUser = Promise.resolve(activeUser);
+        promiseUser.then(function(activeuser) {
+            var query = new Kinvey.Query();
+            query.equalTo('_id', data.id);
+            var stream = Kinvey.User.lookup(query)
+                .subscribe(function(users) {
+                    socket.to(users[0].socket_id).emit('message', {
+                        username: !activeuser ? "anon" : `${activeuser.data.name} ( ${activeuser.data._id} )`,
+                        message: data.message
+                    });
+                });
+        });
+    });
+
+});
+
 app.set('view engine', 'pug');
 app.use(cookieParser());
 app.use(fileUpload());

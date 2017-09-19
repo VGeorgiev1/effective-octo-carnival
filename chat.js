@@ -6,6 +6,8 @@ Kinvey.initialize({
 
 module.exports = {
     show: (req, res) => {
-        res.render('chat');
+        res.render('chat', {
+            id: req.params.id
+        });
     }
 };
