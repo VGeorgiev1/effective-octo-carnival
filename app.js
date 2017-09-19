@@ -16,87 +16,6 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
     res.render('home');
 });
-
-app.get('/register', function(req, res) {
-    res.render('register');
-});
-app.post('/register', function(req, res) {
-    let user = new Kinvey.User();
-    let promise;
-
-    switch (req.body.role) {
-        case 'student':
-            promise = user.signup({
-                username: req.body.user_email,
-                name: req.body.user_name,
-                password: req.body.user_password,
-                role: req.body.role,
-                class: req.body.class,
-                grade: req.body.grade
-            }).then(function(user) {
-                var classQuery = new Kinvey.Query();
-                classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
-                var stream = classesDataStore.find();
-                stream.subscribe(function onNext(entities) {
-                    if (entities.length > 0) {
-                        let matchingClass = entities[0];
-                        if (!matchingClass.hasOwnProperty('students')) {
-                            matchingClass.students = [];
-                        }
-                        matchingClass.students.push(req.body.user_email);
-                        classesDataStore.save(matchingClass).then(function onSuccess(entity) {
-                            console.log("saved: " + entitity);
-                        }).catch(function onError(error) {
-                            console.log(error);
-                        });
-                        res.send(matchingClass);
-                    }
-                }, function onError(error) {
-                    console.log(error);
-                }, function onComplete() {
-                    //res.send(user);
-                });
-            }).catch(function catcher(error) {
-                console.log(error);
-            });
-            break;
-        case 'teacher':
-            promise = user.signup({
-                username: req.body.user_email,
-                password: req.body.user_password,
-                name: req.body.user_name,
-                role: req.body.role,
-                subjects: harvestInfiniteFields(req.body, 'subject')
-            }).then(function(user) {
-
-                res.redirect('/main');
-            });
-            break;
-        case 'parent':
-            promise = user.signup({
-                username: req.body.user_email,
-                password: req.body.user_password,
-                name: req.body.user_name,
-                role: req.body.role,
-                childmail: harvestInfiniteFields(req.body, 'childmail')
-            }).then(function(user) {
-                res.redirect('/main');
-            });
-            break;
-    }
-
-});
-app.post('/login', function(req, res) {
-    let promise = Kinvey.User.login({
-        username: `${req.body.user_email}`,
-        password: `${req.body.user_password}`
-    }).then(function(user) {
-        res.redirect('/main');
-    }).catch(function(err) {
-        console.log(err);
-    });
-});
-
 app.get('/main', function(req, res) {
     let threadStore = Kinvey.DataStore.collection('threads');
     let stream = threadStore.find();
@@ -119,7 +38,6 @@ app.get('/logout', auth.logout);
 app.get('/addclass', function(req, res) {
     res.render('addclass');
 });
-
 app.post('/addclass', function(req, res) {
     classesDataStore.save({
         grade: req.body.grade,
