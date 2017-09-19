@@ -1,0 +1,18 @@
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title Grades
+        link(rel='stylesheet', href='/css/tableDesign.css')
+        link(href='https://fonts.googleapis.com/css?family=Nunito:400,300', rel='stylesheet', type='text/css')
+        script(src='/scripts/jquery-3.2.1.js')
+    body
+        table
+            each row, i in Table
+                tr
+                if i == 0
+                    each col in row
+                        th #{col}
+                else
+                    each col in row
+                        td #{col}
