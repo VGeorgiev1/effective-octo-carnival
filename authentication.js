@@ -49,7 +49,7 @@ module.exports = {
                                 matchingClass.students = [];
                             }
                             console.log("62");
-                            matchingClass.students.push(user._id);
+                            matchingClass.students.push(user.username);
                             console.log("64");
                             classesDataStore.save(matchingClass).then(function onSuccess(entity) {
                                 console.log(entitity);
