@@ -100,6 +100,7 @@ module.exports = {
             username: `${req.body.user_email}`,
             password: `${req.body.user_password}`
         }).then(function(user) {
+            
             res.redirect('/main')
         }).catch(function onError(error) {
             console.log(error);

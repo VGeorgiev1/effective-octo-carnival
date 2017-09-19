@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cookieParser=require('cookie-parser');
 const bodyParser = require('body-parser');
 const auth = require('./authentication.js');
 const forum = require('./forum.js');
@@ -11,7 +12,7 @@ Kinvey.initialize({
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
 app.set('view engine', 'pug');
-
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
