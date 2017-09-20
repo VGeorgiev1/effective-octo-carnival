@@ -15,7 +15,7 @@ html
                         div(style="display:inline-block;width:80%;")
                             input(name='name', type='file')
                             input#tagsmat(placeholder="tags", name='tags', type='text')
-                        button#postmat(type='submit') Post
+                        button(type='submit') Post
                         br
             each mat in mats
                 a(href='/download/' + mat.cstId, style="text-decoration:none")
@@ -25,4 +25,3 @@ html
                             text(id="author") #{mat.author}
                             p #{mat.name}
                             p Tags: #{mat.tagsText}
-
