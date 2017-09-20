@@ -15,6 +15,11 @@ module.exports={
         query.contains('tags',tags);
        let stream=threads.find(query);
        stream.subscribe(function onNext(entity) {
+           entity.map(x=> {
+               if (x.tags) {
+                   x.tagsText = x.tags.join(', ')
+               }
+           });
            res.render('main', {ent:entity})
        },function onError(){
 
