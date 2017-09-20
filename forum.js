@@ -28,7 +28,7 @@ module.exports={
        })
     },
     postthread: (req, res)=>{
-        let threadStore = Kinvey.DataStore.collection('threads');
+           let threadStore = Kinvey.DataStore.collection('threads');
            var activeUser = Kinvey.User.getActiveUser();
            let promiseUser = Promise.resolve(activeUser);
            promiseUser.then(function(activeuser) {
