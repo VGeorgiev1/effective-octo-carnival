@@ -51,11 +51,11 @@ module.exports = {
                             matchingClass.students.push(user.username);
                             console.log("64");
                             classesDataStore.save(matchingClass).then(function onSuccess(entity) {
-                                console.log(entitity);
+                               res.redirect('/main')
                             }).catch(function onError(error) {
                                 console.log(error);
                             });
-                            res.send(matchingClass);
+                            
                         }
                     }, function onError(error) {
                         console.log(error);
