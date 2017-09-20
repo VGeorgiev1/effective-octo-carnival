@@ -116,7 +116,8 @@ module.exports = {
                     if (!matchingClass.hasOwnProperty('subjects')) {
                         matchingClass.subjects = {};
                     }
-                    res.render('listgrades', { subjects: Object.keys(matchingClass.subjects) });
+                    console.log(activeuser.data.class)
+                    res.render('listgrades', { subjects: Object.keys(matchingClass.subjects), grade: activeuser.data.grade, clas: activeuser.data.class });
                 }
             }, function onError(error) {
                 console.log(error);

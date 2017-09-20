@@ -1,2 +1,15 @@
-each subj in subjects 
-    li #{subj}
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title Subjects
+        link(rel='stylesheet', href='/css/tableDesign.css')
+        link(href='https://fonts.googleapis.com/css?family=Nunito:400,300', rel='stylesheet', type='text/css')
+        script(src='/scripts/jquery-3.2.1.js')
+        link(rel='stylesheet', href='/css/main.css')
+    body
+    include ./header.pug
+    each subj in subjects 
+        - var url = grade + '/' + clas + '/' + subj;
+            li(style="list-style-type:none;")
+                a(href='/grades/'+ url, style="margin-left:35%;width:30%;") #{subj}
