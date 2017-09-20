@@ -75,7 +75,7 @@ app.get('/download/:id', materials.download);
 app.get('/materials', materials.materialsGet);
 app.post('/searchMaterial', materials.search);
 app.get('/chat', chat.chatMain);
-app.post('searchUser', chat.search);
+app.post('/sendMessage', chat.sendMessage);
 app.get('/addgrade', function (req, res) {
     res.render('addgrade');
 });
