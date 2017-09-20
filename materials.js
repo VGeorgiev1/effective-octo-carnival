@@ -10,6 +10,12 @@ module.exports={
         let stream=materialsStore.find();
         let materialsContainer;
         stream.subscribe(function onNext(entities) {
+            entities.reverse();
+            entities.map(x=> {
+                if (x.tags) {
+                    x.tagsText = x.tags.join(', ')
+                }
+            });
             materialsContainer=entities;
         },function onError(error) {
             console.log(error.message)
@@ -31,10 +37,12 @@ module.exports={
             };
             let promise1 = Kinvey.Files.upload(req.files.name.data,metadata)
                 .then(function onSuccess(entity) {
+                    let tags=req.body.tags.split(' ');
                     let promise=materialsStore.save({
                         author: `${activeuser.data.name}`,
                         name: req.files.name.name,
-                        cstId: entity._id
+                        cstId: entity._id,
+                        tags: tags
                     }).then((entity) =>{
                        res.redirect(`/materials`);
                     }).catch(function(err) {
