@@ -5,6 +5,31 @@ Kinvey.initialize({
 });
 var http=require('http');
 module.exports={
+    search: (req,res)=>{
+        let materials=Kinvey.DataStore.collection('materials');
+        let query=new Kinvey.Query();
+        let tags=req.body.search.split(' ');
+        tags=tags.filter(x=>x!='');
+        if(tags.length==0){
+            res.redirect('/materials');
+        }
+        query.contains('tags',tags);
+        let stream=materials.find(query);
+        stream.subscribe(function onNext(entity) {
+            entity.map(x=> {
+                if (x.tags) {
+                    x.tagsText = x.tags.join(', ')
+                }
+            });
+            console.log(entity);
+            res.render('materials', {mats:entity})
+        },function onError(){
+
+        },function onComplete() {
+
+        })
+
+    },
     materialsGet: (req,res)=>{
         let materialsStore=Kinvey.DataStore.collection('materials');
         let stream=materialsStore.find();

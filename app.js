@@ -73,6 +73,7 @@ app.post('/postComment/:id', forum.postComment)
 app.post('/upload', materials.upload);
 app.get('/download/:id', materials.download)
 app.get('/materials', materials.materialsGet);
+app.post('/searchMaterial', materials.search);
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });
