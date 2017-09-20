@@ -77,42 +77,7 @@ app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });
 app.post('/search', forum.search);
-app.post('/addgrade', function(req, res) {
-    var classQuery = new Kinvey.Query();
-    classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
-    let classesDataStore = Kinvey.DataStore.collection('classes');
-    let stream = classesDataStore.find(classQuery);
-    stream.subscribe(function onNext(entities) {
-        if (entities.length > 0) {
-            let matchingClass = entities[0];
-            let studentEmail = req.body.studentname;
-            if (!matchingClass.hasOwnProperty('subjects')) {
-                matchingClass.subjects = {};
-            }
-            if (!matchingClass.subjects.hasOwnProperty(req.body.subject)) {
-                matchingClass.subjects[req.body.subject] = {}; // DO NOT TOUCH THIS IT WILL EXPLODE!!!!
-            }
-            if (!matchingClass.subjects[req.body.subject].hasOwnProperty(studentEmail)) {
-                matchingClass.subjects[req.body.subject][studentEmail] = [];
-            }
-            matchingClass.subjects[req.body.subject][studentEmail].push({
-                name: req.body.name,
-                value: req.body.value,
-                weight: 1
-            });
-            classesDataStore.save(matchingClass).then(function onSuccess(entity) {
-                console.log("entity:");
-                console.log(entity);
-            }).catch(function onError(error) {
-                console.log(error);
-            });
-        }
-    }, function onError(error) {
-        console.log(error);
-    }, function onComplete() {
-        res.render('addgrade');
-    });
-});
+app.post('/addgrade', grades.addgrade);
 
 /*app.listen(300, function() {
     console.log('Ready!');

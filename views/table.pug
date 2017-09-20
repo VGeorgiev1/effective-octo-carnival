@@ -12,8 +12,8 @@ html
                 tr
                 if i == 0
                     each col in row
-                        th #{col}
+                        th #{col.content}
                 else
                     each col in row
-                        td #{col}
+                        td #{col.content}
 script(src='/scripts/tableInput.js')
