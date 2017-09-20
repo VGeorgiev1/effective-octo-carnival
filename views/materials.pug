@@ -3,18 +3,20 @@ html
         link(rel='stylesheet', href='/css/main.css')
     body
         include ./header.pug
-        div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
-            form(action='/searchMaterial', method='POST')
-                input#seacrh(style='float:right',placeholder="tags(press space to add more)", name='search')
-                button(style='float:right',type='submit') Search
+        div(style='width:40%;margin-left:36%;margin-bot:0;padding:1px 16px;height:1000px;')
+            form(action='/search', method='POST', style="margin-top:20px;")
+                input#searchbox(style='float:right',placeholder="Type here", name='search')
+                button#search(style='float:right',type='submit') Search
+            br
             form(action='/upload', method='POST', encType="multipart/form-data")
                 section#main
                     .text
-                        img(src='http://placehold.it/100/100')
-                        input#text(placeholder="What's in your mind", name='name', type='file')
-                        input#tags(placeholder="tags", name='tags', type='text')
+                        img(src='http://placehold.it/100/100',style="display:inline-block;")
+                        div(style="display:inline-block;width:80%;")
+                            input(name='name', type='file')
+                            input#tagsmat(placeholder="tags", name='tags', type='text')
+                        button#postmat(type='submit') Post
                         br
-                        button(type='submit') Post
             each mat in mats
                 a(href='/download/' + mat.cstId, style="text-decoration:none")
                     section(class="forumpost")

@@ -118,3 +118,22 @@ section div [type = submit] {
     box-shadow: 0px 0px 3px lightgray;
     padding-left:5px;
 }
+#tagsmat{
+    margin-top:10px;
+    vertical-align:top;
+    padding-left:5px;
+    border:none;
+    width:40%;
+    height:30px;
+    border-top: 3px solid #4bc970;
+    box-shadow: 0px 0px 3px lightgray;
+}
+#postmat{
+    border: none;
+    background-color: #4bc970;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-size: 16px;
+}
