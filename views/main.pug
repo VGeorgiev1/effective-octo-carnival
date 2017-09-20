@@ -3,10 +3,11 @@ html
         link(rel='stylesheet', href='/css/main.css')
     body
         include ./header.pug
-        div(style='width:40%;margin-left:37%;margin-bot:0;padding:1px 16px;height:1000px;')
-            form(action='/search', method='POST')
-                input#seacrh(style='float:right',placeholder="tags(press space to add more)", name='search')
-                button(style='float:right',type='submit') Search
+        div(style='width:40%;margin-left:36%;margin-bot:0;padding:1px 16px;height:1000px;')
+            form(action='/search', method='POST', style="margin-top:20px;")
+                input#searchbox(style='float:right',placeholder="Type here", name='search')
+                button#search(style='float:right',type='submit') Search
+            br
             form(action='/post', method='POST')
                 section#main
                     .text

@@ -44,7 +44,7 @@ section div img {
     vertical-align:top;
 }
 section div textarea {
-    width: 75%;
+    width: 85%;
     height: 150px;
     border:none;
     padding: 5px 10px;
@@ -75,6 +75,7 @@ section div [type = submit] {
     padding: 10px 15px;
     border-radius: 3px;
     font-size: 16px;
+    float:right;
 }
 .overlay {
     background-color: rgba(0,0,0,.5);
@@ -99,4 +100,21 @@ section div [type = submit] {
     height:30px;
     border-top: 3px solid #4bc970;
     box-shadow: 0px 0px 3px lightgray;
+}
+#search{
+    border: none;
+    background-color: #4bc970;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 1px;
+    font-size: 16px;
+    text-align:center;
+    float:right;
+    height:23px;
+}
+#searchbox{
+    border:none;
+    height:23px;
+    box-shadow: 0px 0px 3px lightgray;
+    padding-left:5px;
 }
