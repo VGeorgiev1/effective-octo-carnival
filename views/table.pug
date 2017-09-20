@@ -5,15 +5,21 @@ html
         title Grades
         link(rel='stylesheet', href='/css/tableDesign.css')
         link(href='https://fonts.googleapis.com/css?family=Nunito:400,300', rel='stylesheet', type='text/css')
+        link(rel='stylesheet', href='/css/main.css')
         script(src='/scripts/jquery-3.2.1.js')
     body
-        table
-            each row, i in Table
-                tr
-                if i == 0
-                    each col in row
-                        th #{col.content}
-                else
-                    each col in row
-                        td #{col.content}
+        include ./header.pug
+        div(style='width:35%;margin-left:23.5%;padding:0px 16px;height:1000px;')
+            table
+                each row, i in Table
+                    tr
+                    if i == 0
+                        each col in row
+                            th #{col.content}
+                    else
+                        each col, i in row
+                            if i == 0
+                                td(class="name") #{col.content}
+                            else
+                                td(class="marks") #{col.content}
 script(src='/scripts/tableInput.js')

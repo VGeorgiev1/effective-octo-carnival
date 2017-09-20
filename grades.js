@@ -80,9 +80,9 @@ module.exports = {
                         if (i > 0 && j > 0) {
                             let mark = subj[studentNames[i - 1]].filter((a) => a.name == topics[j - 1])[0];
                             table[i][j].content = mark === undefined ? "" : mark.value;
-                            table[i][j].email = 1;
-                            table[i][j].class = "B";
-                            table[i][j].class = "B";
+                            table[i][j].email = studentNames[i - 1];
+                            table[i][j].class = req.params.class;
+                            table[i][j].grade = req.params.grade;
                         } else if (i > 0 && j == 0) {
                             table[i][j].content = studentNames[i - 1];
                         } else if (i == 0 && j > 0) {
