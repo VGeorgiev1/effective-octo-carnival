@@ -16,6 +16,43 @@ function createArray(length) {
     return arr;
 }
 
+function addGrade(req, res) {
+    var classQuery = new Kinvey.Query();
+    classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
+    let classesDataStore = Kinvey.DataStore.collection('classes');
+    let stream = classesDataStore.find(classQuery);
+    stream.subscribe(function onNext(entities) {
+        if (entities.length > 0) {
+            let matchingClass = entities[0];
+            let studentEmail = req.body.studentname;
+            if (!matchingClass.hasOwnProperty('subjects')) {
+                matchingClass.subjects = {};
+            }
+            if (!matchingClass.subjects.hasOwnProperty(req.body.subject)) {
+                matchingClass.subjects[req.body.subject] = {}; // DO NOT TOUCH THIS IT WILL EXPLODE!!!!
+            }
+            if (!matchingClass.subjects[req.body.subject].hasOwnProperty(studentEmail)) {
+                matchingClass.subjects[req.body.subject][studentEmail] = [];
+            }
+            matchingClass.subjects[req.body.subject][studentEmail].push({
+                name: req.body.name,
+                value: req.body.value,
+                weight: 1
+            });
+            classesDataStore.save(matchingClass).then(function onSuccess(entity) {
+                console.log("entity:");
+                console.log(entity);
+            }).catch(function onError(error) {
+                console.log(error);
+            });
+        }
+    }, function onError(error) {
+        console.log(error);
+    }, function onComplete() {
+        res.render('addgrade');
+    });
+}
+
 module.exports = {
     show: (req, res) => {
         var classQuery = new Kinvey.Query();
@@ -39,15 +76,19 @@ module.exports = {
                 let table = createArray(studentNames.length + 1, topics.length + 1);
                 for (let i = 0; i < studentNames.length + 1; i++) {
                     for (let j = 0; j < topics.length + 1; j++) {
+                        table[i][j] = {};
                         if (i > 0 && j > 0) {
                             let mark = subj[studentNames[i - 1]].filter((a) => a.name == topics[j - 1])[0];
-                            table[i][j] = mark === undefined ? "" : mark.value;
+                            table[i][j].content = mark === undefined ? "" : mark.value;
+                            table[i][j].email = 1;
+                            table[i][j].class = "B";
+                            table[i][j].class = "B";
                         } else if (i > 0 && j == 0) {
-                            table[i][j] = studentNames[i - 1];
+                            table[i][j].content = studentNames[i - 1];
                         } else if (i == 0 && j > 0) {
-                            table[i][j] = topics[j - 1];
+                            table[i][j].content = topics[j - 1];
                         } else {
-                            table[i][j] = "";
+                            table[i][j].content = "";
                         }
                     }
                 }
@@ -59,5 +100,6 @@ module.exports = {
         }, function onError(error) {
             console.log(error);
         }, function onComplete() {});
-    }
+    },
+    addgrade: addGrade
 };
