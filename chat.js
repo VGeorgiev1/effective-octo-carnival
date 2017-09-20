@@ -9,5 +9,11 @@ module.exports = {
         res.render('chat', {
             id: req.params.id
         });
+    },
+    chatMain: (req,res)=>{
+        res.render('find');
+    },
+    search: (req,res)=>{
+
     }
 };

@@ -69,11 +69,13 @@ app.post('/addclass', dir.addClassPOST);
 app.get('/details/:id', forum.details);
 app.get('/grades/:grade/:class/:subject', grades.show);
 app.get('/chat/:id', chat.show);
-app.post('/postComment/:id', forum.postComment)
+app.post('/postComment/:id', forum.postComment);
 app.post('/upload', materials.upload);
-app.get('/download/:id', materials.download)
+app.get('/download/:id', materials.download);
 app.get('/materials', materials.materialsGet);
 app.post('/searchMaterial', materials.search);
+app.get('/chat', chat.chatMain);
+app.post('searchUser',chat.search);
 app.get('/addgrade', function(req, res) {
     res.render('addgrade');
 });

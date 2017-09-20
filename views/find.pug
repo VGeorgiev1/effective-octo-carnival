@@ -1,0 +1,11 @@
+html
+    head
+        link(rel='stylesheet', href='/css/main.css')
+        script(src='/scripts/chat.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
+    body
+        include ./header.pug
+        div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
+            form(action='/searchUser', method='POST')
+                input#seacrh(style='float:right',placeholder="tags(press space to add more)", name='search')
+                button(style='float:right',type='submit') Search
