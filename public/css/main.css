@@ -5,7 +5,8 @@ body {
 
 ul {
     list-style-type: none;
-    margin: 0;
+    margin-left:10%;
+    margin-top:0;
     padding: 0;
     width: 25%;
     background-color: lightgray;
@@ -37,13 +38,13 @@ section div {
     border-radius: 3px;
 }
 section div img {
-    float: left;
-    width: 60px;
-    height: 60px;
-    margin-right:15px;
+    width: 13%;
+    height: auto;
+    margin-right:2%;
+    vertical-align:top;
 }
 section div textarea {
-    width: 400px;
+    width: 75%;
     height: 150px;
     border:none;
     padding: 5px 10px;
@@ -66,7 +67,6 @@ textarea::-webkit-scrollbar-thumb {
     border-radius: 2px
 }
 section div [type = submit] {
-    float: right;
     margin: 15px 10px;
     border: none;
     background-color: #4bc970;
@@ -87,4 +87,16 @@ section div [type = submit] {
     display: none;
 }#author{
     font-size:20px;
+}
+#tags{
+    margin-top:10px;
+    margin-left:15%;
+    margin-right:20%;
+    vertical-align:top;
+    padding-left:5px;
+    border:none;
+    width:40%;
+    height:30px;
+    border-top: 3px solid #4bc970;
+    box-shadow: 0px 0px 3px lightgray;
 }

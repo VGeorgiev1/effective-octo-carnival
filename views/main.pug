@@ -3,7 +3,7 @@ html
         link(rel='stylesheet', href='/css/main.css')
     body
         include ./header.pug
-        div(style='width:35%;margin-left:27%;padding:1px 16px;height:1000px;')
+        div(style='width:40%;margin-left:37%;margin-bot:0;padding:1px 16px;height:1000px;')
             form(action='/search', method='POST')
                 input#seacrh(style='float:right',placeholder="tags(press space to add more)", name='search')
                 button(style='float:right',type='submit') Search
@@ -13,7 +13,6 @@ html
                         img(src='http://placehold.it/100/100')
                         textarea#text(placeholder="What's on your mind", name='text')
                         input#tags(placeholder="tags(press space to add more)", name='tags')
-                        br
                         button(type='submit') Post
                         br 
                         br
@@ -25,7 +24,7 @@ html
                             img(src='http://placehold.it/100/100')
                             text(id="author") #{entit.author}
                             p #{entit.text}
-                            p #{entit.time}
+                            p #{entit.time} ago
                             p Tags: #{entit.tagsText}
 
 
