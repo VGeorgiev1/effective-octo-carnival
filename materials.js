@@ -45,7 +45,18 @@ module.exports={
         },function onError(error) {
             console.log(error.message)
         },function onComplete() {
-            res.render('materials', {mats: materialsContainer})
+            var activeUser = Kinvey.User.getActiveUser();
+            let promiseUser = Promise.resolve(activeUser);
+            promiseUser.then(function(activeuser) {
+                if(activeUser.data.role=='teacher'){
+                    res.render('materials', {mats: materialsContainer,
+                                             teacher: true})
+                }
+                else{
+                    res.render('materials', {mats: materialsContainer})
+                }
+            })
+            
         })
     },
     upload: (req,res)=>{

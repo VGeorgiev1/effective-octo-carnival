@@ -43,7 +43,19 @@ module.exports={
         }, function onError(error) {
             console.log(error);
         }, function onComplete() {
-            res.render('main', {ent: ent})
+            var activeUser = Kinvey.User.getActiveUser();
+            let promiseUser = Promise.resolve(activeUser);
+            promiseUser.then(function(activeuser) {
+                
+                if(activeUser.data.role=='teacher'){
+                    res.render('main', {ent: ent,
+                                        teacher: true})
+                }
+                else{
+                    res.render('main', {ent: ent})
+                }
+            })
+           
         });
     }
 };
