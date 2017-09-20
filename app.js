@@ -78,7 +78,6 @@ app.get('/addgrade', function(req, res) {
 });
 app.post('/search', forum.search);
 app.post('/addgrade', grades.addgrade);
-
 /*app.listen(300, function() {
     console.log('Ready!');
 });*/

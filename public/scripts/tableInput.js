@@ -1,4 +1,4 @@
-$('td').on('click', function() {
+$('td.marks').on('click', function() {
     var $this = $(this);
     var $input = $('<input>', {
         value: $this.text(),
