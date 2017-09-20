@@ -99,7 +99,25 @@ module.exports = {
             }
         }, function onError(error) {
             console.log(error);
-        }, function onComplete() {});
+        }, function onComplete() { });
     },
-    addgrade: addGrade
+    addgrade: addGrade,
+    listgrades: (req, res) => {
+        var classQuery = new Kinvey.Query();
+        classQuery.equalTo('grade', req.body.grade).and().equalTo('class', req.body.class);
+        let classesDataStore = Kinvey.DataStore.collection('classes');
+        let stream = classesDataStore.find(classQuery);
+        stream.subscribe(function onNext(entities) {
+            if (entities.length > 0) {
+                let matchingClass = entities[0];
+                if (!matchingClass.hasOwnProperty('subjects')) {
+                    matchingClass.subjects = {};
+                }
+                res.render('listgrades', { subjects: Object.keys(matchingClass.subjects) });
+            }
+        }, function onError(error) {
+            console.log(error);
+        }, function onComplete() {
+        });
+    }
 };

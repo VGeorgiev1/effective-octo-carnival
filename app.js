@@ -18,29 +18,29 @@ Kinvey.initialize({
     appSecret: 'e3b622e5dd8e468da97e3fcc2366860a'
 });
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
     socket.emit('message', {
         username: "server",
         message: "hello"
     });
     var promise = Kinvey.User.update({
-            "socket_id": socket.id
-        })
-        .then(function(user) {
+        "socket_id": socket.id
+    })
+        .then(function (user) {
             // ...
         })
-        .catch(function(error) {
+        .catch(function (error) {
             // ...
         });
-    socket.on('send', function(data) {
+    socket.on('send', function (data) {
         console.log("aaa");
         var activeUser = Kinvey.User.getActiveUser();
         let promiseUser = Promise.resolve(activeUser);
-        promiseUser.then(function(activeuser) {
+        promiseUser.then(function (activeuser) {
             var query = new Kinvey.Query();
             query.equalTo('_id', data.id);
             var stream = Kinvey.User.lookup(query)
-                .subscribe(function(users) {
+                .subscribe(function (users) {
                     socket.to(users[0].socket_id).emit('message', {
                         username: !activeuser ? "anon" : `${activeuser.data.name} ( ${activeuser.data._id} )`,
                         message: data.message
@@ -75,12 +75,13 @@ app.get('/download/:id', materials.download);
 app.get('/materials', materials.materialsGet);
 app.post('/searchMaterial', materials.search);
 app.get('/chat', chat.chatMain);
-app.post('searchUser',chat.search);
-app.get('/addgrade', function(req, res) {
+app.post('searchUser', chat.search);
+app.get('/addgrade', function (req, res) {
     res.render('addgrade');
 });
 app.post('/search', forum.search);
 app.post('/addgrade', grades.addgrade);
+app.get('/listgrades', grades.listgrades);
 /*app.listen(300, function() {
     console.log('Ready!');
 });*/
